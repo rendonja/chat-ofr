@@ -122,11 +122,11 @@
         const data = await response.json();
 
         // Muestra la respuesta del bot
-        chatMessages.innerHTML += `<div><strong>Bot:</strong> ${data.respuesta}</div>`;
+        chatMessages.innerHTML += `<div><strong>OFR:</strong> ${data.respuesta}</div>`;
 
       } catch (error) {
         // Si hay un error en la solicitud, lo informa
-        chatMessages.innerHTML += `<div><strong>Bot:</strong> Ocurrió un error al procesar tu pregunta.</div>`;
+        chatMessages.innerHTML += `<div><strong>OFR:</strong> Ocurrió un error al procesar tu pregunta.</div>`;
       }
 
       // Auto-scroll al final del chat
