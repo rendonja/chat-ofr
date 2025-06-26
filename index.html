@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat OFR</title>
+
+  <!-- Importa la fuente Lato desde Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Estilo general del contenedor del chat */
+    #chat-box {
+      font-family: 'Lato', sans-serif;
+      background-color: #e6f4ea; /* Verde claro */
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: 20px auto;
+    }
+
+    /* Título centrado y verde */
+    #chat-box h3 {
+      text-align: center;
+      color: #2e7d32; /* Verde institucional oscuro */
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    /* Subtítulo centrado */
+    #chat-box p {
+      text-align: center;
+      color: #2e7d32;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    /* Área de mensajes del chat */
+    #chat-messages {
+      max-height: 300px;
+      overflow-y: auto;
+      background: #ffffff;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      border: 1px solid #d0d0d0;
+    }
+
+    /* Campo de entrada más alto y claro */
+    input[type="text"] {
+      width: 100%;
+      height: 60px;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    /* Botón de enviar */
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4caf50; /* Verde institucional */
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #388e3c;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Contenedor del chat -->
+  <div id="chat-box">
+    <!-- Título -->
+    <h3>Asistente del OFR-PUJ</h3>
+
+    <!-- Subtítulo explicativo -->
+    <p>Consulta los datos del observatorio y recibe respuestas automatizadas sobre inclusión financiera rural.</p>
+
+    <!-- Área donde se muestran los mensajes del usuario y del bot -->
+    <div id="chat-messages"></div>
+
+    <!-- Campo donde el usuario escribe su pregunta -->
+    <input type="text" id="user-input" placeholder="Escribe tu pregunta aquí..." />
+
+    <!-- Botón para enviar la pregunta -->
+    <button onclick="sendPrompt()">Consultar</button>
+  </div>
+
+  <script>
+    // Función para enviar la pregunta al servidor y recibir respuesta
+    async function sendPrompt() {
+      const input = document.getElementById("user-input");
+      const message = input.value.trim();
+
+      if (!message) return; // Si el campo está vacío, no hace nada
+
+      const chatMessages = document.getElementById("chat-messages");
+
+      // Agrega el mensaje del usuario
+      chatMessages.innerHTML += `<div><strong>Tú:</strong> ${message}</div>`;
+      input.value = ""; // Limpia el campo
+
+      try {
+        // Llama a la función de Google Cloud con la pregunta
+        const response = await fetch("https://us-central1-consultorias-1978.cloudfunctions.net/procesar_pregunta", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pregunta: message })
+        });
+
+        const data = await response.json();
+
+        // Muestra la respuesta del bot
+        chatMessages.innerHTML += `<div><strong>Bot:</strong> ${data.respuesta}</div>`;
+
+      } catch (error) {
+        // Si hay un error en la solicitud, lo informa
+        chatMessages.innerHTML += `<div><strong>Bot:</strong> Ocurrió un error al procesar tu pregunta.</div>`;
+      }
+
+      // Auto-scroll al final del chat
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  </script>
+
+</body>
+</html>
