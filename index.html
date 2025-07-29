@@ -87,32 +87,39 @@
 </head>
 <script>
   function sendPrompt() {
-    // Obtener el valor del textarea
     const input = document.getElementById("user-input").value.trim();
-
-    // Verificar que no esté vacío
     if (input === "") return;
 
-    // Crear un nuevo elemento de mensaje
-    const message = document.createElement("div");
-    message.textContent = "🧑‍💬 " + input;
-    message.style.marginBottom = "10px";
-    message.style.backgroundColor = "#f1f8f4";
-    message.style.padding = "8px 12px";
-    message.style.borderRadius = "8px";
+    // Mensaje del usuario
+    const userMessage = document.createElement("div");
+    userMessage.textContent = "🧑‍💬 " + input;
+    userMessage.style.marginBottom = "10px";
+    userMessage.style.backgroundColor = "#f1f8f4";
+    userMessage.style.padding = "8px 12px";
+    userMessage.style.borderRadius = "8px";
 
-    // Agregar el mensaje al contenedor
-    document.getElementById("chat-messages").appendChild(message);
+    const chatBox = document.getElementById("chat-messages");
+    chatBox.appendChild(userMessage);
 
-    // Limpiar el textarea
+    // Limpiar campo de texto
     document.getElementById("user-input").value = "";
 
-    // Bajar el scroll automáticamente
-    const chatBox = document.getElementById("chat-messages");
+    // Scroll automático
     chatBox.scrollTop = chatBox.scrollHeight;
 
- const botReply = document.createElement("div");
-botReply.textContent = "🤖 Estoy procesando tu solicitud..."; }
+    // Respuesta automática del bot (con pequeño retraso)
+    setTimeout(() => {
+      const botReply = document.createElement("div");
+      botReply.textContent = "🤖 Estoy procesando tu solicitud...";
+      botReply.style.marginBottom = "10px";
+      botReply.style.backgroundColor = "#e8f5e9";
+      botReply.style.padding = "8px 12px";
+      botReply.style.borderRadius = "8px";
+      botReply.style.color = "#2e7d32";
+      chatBox.appendChild(botReply);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }, 700);
+  }
 </script>
 
 <body>
