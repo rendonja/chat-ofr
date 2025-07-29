@@ -4,16 +4,14 @@
   <meta charset="UTF-8">
   <title>Chat OFR</title>
 
-  <!-- Importa la fuente Lato desde Google Fonts -->
-  <link  href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
   <style>
-    /* Estilo general del contenedor del chat */
     #chat-box {
       font-family: 'Lato', sans-serif;
-      background-color: #e6f4ea; /* Verde claro */
+      background-color: #e6f4ea;
       border: 1px solid #ccc;
       padding: 20px;
       border-radius: 10px;
@@ -22,16 +20,14 @@
       box-sizing: border-box;
     }
 
-    /* Título centrado y verde */
     #chat-box h3 {
-  text-align: center;
-  color: #77B542;
-  font-family: 'Playfair Display', serif;
-  font-weight: bold;
-  margin-bottom: 6px;
+      text-align: center;
+      color: #77B542;
+      font-family: 'Playfair Display', serif;
+      font-weight: bold;
+      margin-bottom: 6px;
     }
 
-    /* Subtítulo centrado */
     #chat-box p {
       text-align: center;
       color: #38883D;
@@ -39,7 +35,6 @@
       margin-bottom: 16px;
     }
 
-    /* Área de mensajes del chat */
     #chat-messages {
       max-height: 500px;
       height: 300px;
@@ -51,8 +46,6 @@
       border: 1px solid #d0d0d0;
     }
 
-    /* Campo de entrada más alto y claro */
-    /* Campo de entrada tipo textarea */
     textarea {
       width: 100%;
       min-height: 80px;
@@ -66,12 +59,10 @@
       resize: none;
     }
 
-
-    /* Botón de enviar */
     button {
       width: 100%;
       padding: 12px;
-      background-color: #4caf50; /* Verde institucional */
+      background-color: #4caf50;
       color: white;
       border: none;
       border-radius: 6px;
@@ -85,42 +76,53 @@
     }
   </style>
 </head>
-<script>
-  function sendPrompt() {
-    const input = document.getElementById("user-input").value.trim();
-    if (input === "") return;
-
-    // Mensaje del usuario
-    const userMessage = document.createElement("div");
-    userMessage.textContent = "🧑‍💬 " + input;
-    userMessage.style.marginBottom = "10px";
-    userMessage.style.backgroundColor = "#f1f8f4";
-    userMessage.style.padding = "8px 12px";
-    userMessage.style.borderRadius = "8px";
-
-    const chatBox = document.getElementById("chat-messages");
-    chatBox.appendChild(userMessage);
-
-    // Limpiar campo de texto
-    document.getElementById("user-input").value = "";
-
-    // Scroll automático
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    // Respuesta inmediata del bot
-    const botReply = document.createElement("div");
-    botReply.textContent = "🤖 Estoy procesando tu solicitud...";
-    botReply.style.marginBottom = "10px";
-    botReply.style.backgroundColor = "#e8f5e9";
-    botReply.style.padding = "8px 12px";
-    botReply.style.borderRadius = "8px";
-    botReply.style.color = "#2e7d32";
-    chatBox.appendChild(botReply);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
-</script>
 
 <body>
+  <div id="chat-box">
+    <h3>IA del Observatorio</h3>
+    <p>Consulta las bases de datos del observatorio. Puedes hacer preguntas como:<br><br>
+      <em>¿Cuál es la tasa de interés promedio para mujeres en crédito productivo rural para 2024?</em>
+    </p>
+    <div id="chat-messages"></div>
+    <textarea id="user-input" placeholder="Escribe tu pregunta aquí..." rows="3"></textarea>
+    <button onclick="sendPrompt()">Consultar</button>
+  </div>
+
+  <script>
+    function sendPrompt() {
+      const input = document.getElementById("user-input").value.trim();
+      if (input === "") return;
+
+      const chatBox = document.getElementById("chat-messages");
+
+      // Mostrar mensaje del usuario
+      const userMessage = document.createElement("div");
+      userMessage.textContent = "🧑‍💬 " + input;
+      userMessage.style.marginBottom = "10px";
+      userMessage.style.backgroundColor = "#f1f8f4";
+      userMessage.style.padding = "8px 12px";
+      userMessage.style.borderRadius = "8px";
+      chatBox.appendChild(userMessage);
+
+      // Limpiar el campo
+      document.getElementById("user-input").value = "";
+
+      // Mostrar respuesta automática
+      const botReply = document.createElement("div");
+      botReply.textContent = "🤖 Estoy procesando tu solicitud...";
+      botReply.style.marginBottom = "10px";
+      botReply.style.backgroundColor = "#e8f5e9";
+      botReply.style.padding = "8px 12px";
+      botReply.style.borderRadius = "8px";
+      botReply.style.color = "#2e7d32";
+      chatBox.appendChild(botReply);
+
+      // Auto scroll
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
 
   <!-- Contenedor del chat -->
   <div id="chat-box">
