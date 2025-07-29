@@ -85,6 +85,33 @@
     }
   </style>
 </head>
+<script>
+  function sendPrompt() {
+    // Obtener el valor del textarea
+    const input = document.getElementById("user-input").value.trim();
+
+    // Verificar que no esté vacío
+    if (input === "") return;
+
+    // Crear un nuevo elemento de mensaje
+    const message = document.createElement("div");
+    message.textContent = "🧑‍💬 " + input;
+    message.style.marginBottom = "10px";
+    message.style.backgroundColor = "#f1f8f4";
+    message.style.padding = "8px 12px";
+    message.style.borderRadius = "8px";
+
+    // Agregar el mensaje al contenedor
+    document.getElementById("chat-messages").appendChild(message);
+
+    // Limpiar el textarea
+    document.getElementById("user-input").value = "";
+
+    // Bajar el scroll automáticamente
+    const chatBox = document.getElementById("chat-messages");
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }
+</script>
 
 <body>
 
