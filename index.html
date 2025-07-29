@@ -110,15 +110,14 @@
     // Respuesta automática del bot (con pequeño retraso)
     setTimeout(() => {
       const botReply = document.createElement("div");
-      botReply.textContent = "🤖 Estoy procesando tu solicitud...";
-      botReply.style.marginBottom = "10px";
-      botReply.style.backgroundColor = "#e8f5e9";
-      botReply.style.padding = "8px 12px";
-      botReply.style.borderRadius = "8px";
-      botReply.style.color = "#2e7d32";
-      chatBox.appendChild(botReply);
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }, 700);
+botReply.textContent = "🤖 Estoy procesando tu solicitud...";
+botReply.style.marginBottom = "10px";
+botReply.style.backgroundColor = "#e8f5e9";
+botReply.style.padding = "8px 12px";
+botReply.style.borderRadius = "8px";
+botReply.style.color = "#2e7d32";
+chatBox.appendChild(botReply);
+chatBox.scrollTop = chatBox.scrollHeight;
   }
 </script>
 
