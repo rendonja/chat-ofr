@@ -129,7 +129,7 @@
     const chatMessages = document.getElementById("chat-messages");
 
     // Agregar mensaje del usuario como burbuja
-    chatMessages.innerHTML += <div class="user-msg"><strong>Tú:</strong> ${message}</div>;
+    chatMessages.innerHTML += `<div class="user-msg"><strong>Tú:</strong> ${message}</div>`;
     input.value = "";
 
     // Agregar mensaje de espera del bot
