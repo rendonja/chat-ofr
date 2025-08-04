@@ -104,7 +104,10 @@
       input.value = "";
 
       // Mostrar mensaje de espera
-      chatMessages.innerHTML += `<div><strong>🤖 OFR:</strong> Procesando tu solicitud...</div>`;
+      chatMessages.innerHTML += `<div><strong>
+  <img src="logo-ofr.png" alt="OFR" style="width:20px; vertical-align:middle; margin-right:6px;">
+  OFR:
+</strong> Procesando tu solicitud...</div>`;
 
       // Scroll automático
       chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -119,7 +122,10 @@
         const data = await response.json();
 
         // Mostrar respuesta del bot
-        chatMessages.innerHTML += `<div><strong>🤖 OFR:</strong> ${data.respuesta}</div>`;
+        chatMessages.innerHTML += `<div><strong>
+  <img src="logo-ofr.png" alt="OFR" style="width:20px; vertical-align:middle; margin-right:6px;">
+  OFR:
+</strong> ${data.respuesta}</div>`;
       } catch (error) {
         chatMessages.innerHTML += `<div><strong>🤖 OFR:</strong> Ocurrió un error al procesar tu pregunta.</div>`;
       }
