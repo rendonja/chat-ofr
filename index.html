@@ -36,18 +36,41 @@
     }
 
     #chat-messages {
-      max-height: 500px;
-      height: 400px;
-      overflow-y: auto;
-      background: #ffffff;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 14px;
-      border: 1px solid #d0d0d0;
-      font-size: 15px;
-      display: flex;
-      flex-direction: column;
-    }
+  position: relative;
+  max-height: 500px;
+  height: 400px;
+  overflow-y: auto;
+  background: #ffffff; /* Fondo blanco */
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  border: 1px solid #d0d0d0;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Marca de agua */
+#chat-messages::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;       /* Tamaño del logo */
+  height: 200px;
+  background: url('logo-ofr.png') no-repeat center;
+  background-size: contain;
+  opacity: 0.08;      /* Ajusta la transparencia */
+  transform: translate(-50%, -50%);
+  pointer-events: none; /* No bloquea clics ni scroll */
+  z-index: 0;
+}
+
+/* Aseguramos que los mensajes estén encima */
+.user-msg, .bot-msg {
+  position: relative;
+  z-index: 1;
+}
 
     /* Estilo de burbujas tipo WhatsApp */
     .user-msg {
