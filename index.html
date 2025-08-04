@@ -48,16 +48,19 @@
       font-size: 15px;
       display: flex;
       flex-direction: column;
+
+      /* Variable CSS para tamaño de marca de agua */
+      --watermark-size: 200px;
     }
 
-    /* Marca de agua */
+    /* Marca de agua dinámica */
     #chat-messages::before {
       content: "";
-      position: fixed; /* Siempre centrada */
+      position: fixed;
       top: 50%;
       left: 50%;
-      width: 200px;
-      height: 200px;
+      width: var(--watermark-size);
+      height: var(--watermark-size);
       background: url('logo-ofr.png') no-repeat center;
       background-size: contain;
       opacity: 0.08;
@@ -180,6 +183,14 @@
     const chatMessages = document.getElementById("chat-messages");
     const input = document.getElementById("user-input");
 
+    // Ajustar el tamaño de la marca de agua dinámicamente
+    function resizeWatermark() {
+      const size = Math.min(chatMessages.clientWidth, chatMessages.clientHeight) * 0.5;
+      chatMessages.style.setProperty("--watermark-size", `${size}px`);
+    }
+    window.addEventListener("load", resizeWatermark);
+    window.addEventListener("resize", resizeWatermark);
+
     function scrollToBottom() {
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
@@ -222,7 +233,6 @@
         const data = await response.json();
 
         typingDiv.remove();
-
         addMessage(`<img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> ${data.respuesta}`, "bot-msg");
       } catch (error) {
         typingDiv.remove();
