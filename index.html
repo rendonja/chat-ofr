@@ -58,6 +58,7 @@
       margin: 4px 0;
       max-width: 75%;
       word-wrap: break-word;
+      animation: fadeInUp 0.3s ease forwards;
     }
 
     .bot-msg {
@@ -68,6 +69,7 @@
       margin: 4px 0;
       max-width: 75%;
       word-wrap: break-word;
+      animation: fadeInUp 0.3s ease forwards;
     }
 
     .bot-msg img {
@@ -111,8 +113,34 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    .user-msg, .bot-msg {
-      animation: fadeInUp 0.3s ease forwards;
+    /* Animación puntos escribiendo */
+    .typing {
+      display: flex;
+      align-items: center;
+    }
+
+    .typing img {
+      width: 20px;
+      margin-right: 6px;
+    }
+
+    .dot {
+      height: 6px;
+      width: 6px;
+      background-color: #555;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0 2px;
+      animation: blink 1.4s infinite both;
+    }
+
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink {
+      0% { opacity: 0.2; }
+      20% { opacity: 1; }
+      100% { opacity: 0.2; }
     }
   </style>
 </head>
@@ -143,15 +171,21 @@
 
       const chatMessages = document.getElementById("chat-messages");
 
-      // Agregar mensaje del usuario como burbuja
+      // Mensaje del usuario
       chatMessages.innerHTML += `<div class="user-msg"><strong>Tú:</strong> ${message}</div>`;
       input.value = "";
       setTimeout(scrollToBottom, 100);
 
-      // Agregar mensaje de espera del bot
-      chatMessages.innerHTML += `<div class="bot-msg">
-        <img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> Procesando tu solicitud...
-      </div>`;
+      // Efecto escribiendo
+      const typingDiv = document.createElement("div");
+      typingDiv.className = "bot-msg typing";
+      typingDiv.innerHTML = `
+        <img src="logo-ofr.png" alt="OFR">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      `;
+      chatMessages.appendChild(typingDiv);
       setTimeout(scrollToBottom, 100);
 
       try {
@@ -163,11 +197,15 @@
 
         const data = await response.json();
 
-        // Mostrar respuesta del bot
+        // Quitar efecto escribiendo
+        chatMessages.removeChild(typingDiv);
+
+        // Mostrar respuesta
         chatMessages.innerHTML += `<div class="bot-msg">
           <img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> ${data.respuesta}
         </div>`;
       } catch (error) {
+        chatMessages.removeChild(typingDiv);
         chatMessages.innerHTML += `<div class="bot-msg">
           <img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> Ocurrió un error al procesar tu pregunta.
         </div>`;
