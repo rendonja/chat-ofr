@@ -9,12 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      background-color: #f4f4f4;
-      font-family: 'Lato', sans-serif;
-    }
-
     #chat-box {
+      font-family: 'Lato', sans-serif;
       background-color: #e6f4ea;
       border: 1px solid #ccc;
       padding: 20px;
@@ -40,45 +36,16 @@
     }
 
     #chat-messages {
-      max-height: 500px;
-      height: 400px;
-      overflow-y: auto;
-      background: #ffffff;
-      padding: 12px;
-      border-radius: 8px;
-      margin-bottom: 14px;
-      border: 1px solid #d0d0d0;
-      font-size: 15px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Burbujas de chat */
-    .user-msg {
-      background-color: #dcf8c6; /* verde claro estilo WhatsApp */
-      align-self: flex-end;
-      padding: 8px 12px;
-      border-radius: 12px 12px 0 12px;
-      margin: 4px 0;
-      max-width: 75%;
-      word-wrap: break-word;
-    }
-
-    .bot-msg {
-      background-color: #f1f0f0;
-      align-self: flex-start;
-      padding: 8px 12px;
-      border-radius: 12px 12px 12px 0;
-      margin: 4px 0;
-      max-width: 75%;
-      word-wrap: break-word;
-    }
-
-    .bot-msg img {
-      width: 20px;
-      vertical-align: middle;
-      margin-right: 6px;
-    }
+  max-height: 500px;
+  height: 400px;
+  overflow-y: auto;
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  border: 1px solid #d0d0d0;
+  font-size: 15px;
+}
 
     textarea {
       width: 100%;
@@ -87,9 +54,10 @@
       font-size: 15px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      font-family: 'Lato', sans-serif;
       resize: none;
-      margin-bottom: 10px;
       box-sizing: border-box;
+      margin-bottom: 10px;
     }
 
     button {
@@ -131,15 +99,17 @@
 
       const chatMessages = document.getElementById("chat-messages");
 
-      // Mensaje del usuario
-      chatMessages.innerHTML += <div class="user-msg"><strong>Tú:</strong> ${message}</div>;
+      // Mostrar mensaje del usuario
+      chatMessages.innerHTML += <div><strong>🧑‍💬 Tú:</strong> ${message}</div>;
       input.value = "";
 
-      // Mensaje de espera del bot
-      chatMessages.innerHTML += `<div class="bot-msg">
-        <img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> Procesando tu solicitud...
-      </div>`;
+      // Mostrar mensaje de espera
+      chatMessages.innerHTML += `<div><strong>
+  <img src="logo-ofr.png" alt="OFR" style="width:20px; vertical-align:middle; margin-right:6px;">
+  OFR:
+</strong> Procesando tu solicitud...</div>`;
 
+      // Scroll automático
       chatMessages.scrollTop = chatMessages.scrollHeight;
 
       try {
@@ -151,14 +121,13 @@
 
         const data = await response.json();
 
-        // Respuesta del bot
-        chatMessages.innerHTML += `<div class="bot-msg">
-          <img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> ${data.respuesta}
-        </div>`;
+        // Mostrar respuesta del bot
+        chatMessages.innerHTML += `<div><strong>
+  <img src="logo-ofr.png" alt="OFR" style="width:20px; vertical-align:middle; margin-right:6px;">
+  OFR:
+</strong> ${data.respuesta}</div>`;
       } catch (error) {
-        chatMessages.innerHTML += `<div class="bot-msg">
-          <img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> Ocurrió un error al procesar tu pregunta.
-        </div>`;
+        chatMessages.innerHTML += <div><strong>🤖 OFR:</strong> Ocurrió un error al procesar tu pregunta.</div>;
       }
 
       chatMessages.scrollTop = chatMessages.scrollHeight;
