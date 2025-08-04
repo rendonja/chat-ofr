@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -49,7 +49,7 @@
       display: flex;
       flex-direction: column;
 
-      /* Variable CSS para tamaño de marca de agua */
+      /* Variable para el tamaño dinámico de la marca de agua */
       --watermark-size: 200px;
     }
 
@@ -80,7 +80,7 @@
       animation: fadeInUp 0.3s ease forwards;
     }
 
-    /* Estilo de burbujas tipo WhatsApp */
+    /* Burbujas estilo WhatsApp */
     .user-msg {
       background-color: #dcf8c6;
       align-self: flex-end;
@@ -128,7 +128,7 @@
       background-color: #388e3c;
     }
 
-    /* Animación para burbujas */
+    /* Animación burbujas */
     @keyframes fadeInUp {
       0% { opacity: 0; transform: translateY(10px); }
       100% { opacity: 1; transform: translateY(0); }
@@ -183,7 +183,7 @@
     const chatMessages = document.getElementById("chat-messages");
     const input = document.getElementById("user-input");
 
-    // Ajustar el tamaño de la marca de agua dinámicamente
+    // Ajustar tamaño de la marca de agua dinámicamente
     function resizeWatermark() {
       const size = Math.min(chatMessages.clientWidth, chatMessages.clientHeight) * 0.5;
       chatMessages.style.setProperty("--watermark-size", `${size}px`);
