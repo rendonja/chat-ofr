@@ -36,16 +36,45 @@
     }
 
     #chat-messages {
-  max-height: 500px;
-  height: 400px;
-  overflow-y: auto;
-  background: #ffffff;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  border: 1px solid #d0d0d0;
-  font-size: 15px;
-}
+      max-height: 500px;
+      height: 400px;
+      overflow-y: auto;
+      background: #ffffff;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      border: 1px solid #d0d0d0;
+      font-size: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Estilo de burbujas tipo WhatsApp */
+    .user-msg {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+      padding: 8px 12px;
+      border-radius: 12px 12px 0 12px;
+      margin: 4px 0;
+      max-width: 75%;
+      word-wrap: break-word;
+    }
+
+    .bot-msg {
+      background-color: #f1f0f0;
+      align-self: flex-start;
+      padding: 8px 12px;
+      border-radius: 12px 12px 12px 0;
+      margin: 4px 0;
+      max-width: 75%;
+      word-wrap: break-word;
+    }
+
+    .bot-msg img {
+      width: 20px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
 
     textarea {
       width: 100%;
@@ -99,17 +128,15 @@
 
       const chatMessages = document.getElementById("chat-messages");
 
-      // Mostrar mensaje del usuario
-      chatMessages.innerHTML += <div><strong>🧑‍💬 Tú:</strong> ${message}</div>;
+      // Agregar mensaje del usuario como burbuja
+      chatMessages.innerHTML += <div class="user-msg"><strong>Tú:</strong> ${message}</div>;
       input.value = "";
 
-      // Mostrar mensaje de espera
-      chatMessages.innerHTML += `<div><strong>
-  <img src="logo-ofr.png" alt="OFR" style="width:20px; vertical-align:middle; margin-right:6px;">
-  OFR:
-</strong> Procesando tu solicitud...</div>`;
+      // Agregar mensaje de espera del bot
+      chatMessages.innerHTML += `<div class="bot-msg">
+        <img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> Procesando tu solicitud...
+      </div>`;
 
-      // Scroll automático
       chatMessages.scrollTop = chatMessages.scrollHeight;
 
       try {
@@ -122,12 +149,13 @@
         const data = await response.json();
 
         // Mostrar respuesta del bot
-        chatMessages.innerHTML += `<div><strong>
-  <img src="logo-ofr.png" alt="OFR" style="width:20px; vertical-align:middle; margin-right:6px;">
-  OFR:
-</strong> ${data.respuesta}</div>`;
+        chatMessages.innerHTML += `<div class="bot-msg">
+          <img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> ${data.respuesta}
+        </div>`;
       } catch (error) {
-        chatMessages.innerHTML += <div><strong>🤖 OFR:</strong> Ocurrió un error al procesar tu pregunta.</div>;
+        chatMessages.innerHTML += `<div class="bot-msg">
+          <img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> Ocurrió un error al procesar tu pregunta.
+        </div>`;
       }
 
       chatMessages.scrollTop = chatMessages.scrollHeight;
