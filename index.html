@@ -156,7 +156,7 @@
     async function sendPrompt() {
       const message = input.value.trim();
       if (!message) return;
-      addMessage(<strong>Tú:</strong> ${message}, "user-msg");
+      addMessage(`<strong>Tú:</strong> ${message}`, "user-msg");
       input.value = "";
 
       try {
@@ -166,9 +166,9 @@
           body: JSON.stringify({ pregunta: message })
         });
         const data = await response.json();
-        addMessage(<strong>OFR:</strong> ${data.respuesta}, "bot-msg");
+        addMessage(`<strong>OFR:</strong> ${data.respuesta}`, "bot-msg");
       } catch (err) {
-        addMessage(<strong>OFR:</strong> Error al procesar la consulta., "bot-msg");
+        addMessage(`<strong>OFR:</strong> Error al procesar la consulta.`, "bot-msg");
       }
     }
 
