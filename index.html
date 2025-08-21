@@ -186,7 +186,7 @@
     // Ajustar tamaño de la marca de agua dinámicamente
     function resizeWatermark() {
       const size = Math.min(chatMessages.clientWidth, chatMessages.clientHeight) * 0.5;
-      chatMessages.style.setProperty("--watermark-size", ${size}px);
+      chatMessages.style.setProperty("--watermark-size", `${size}px`);
     }
     window.addEventListener("load", resizeWatermark);
     window.addEventListener("resize", resizeWatermark);
@@ -207,7 +207,7 @@
       const message = input.value.trim();
       if (!message) return;
 
-      addMessage(<strong>Tú:</strong> ${message}, "user-msg");
+      addMessage(`<strong>Tú:</strong> ${message}`, "user-msg");
       input.value = "";
       input.focus();
 
@@ -233,10 +233,10 @@
         const data = await response.json();
 
         typingDiv.remove();
-        addMessage(<img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> ${data.respuesta}, "bot-msg");
+        addMessage(`<img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> ${data.respuesta}`, "bot-msg");
       } catch (error) {
         typingDiv.remove();
-        addMessage(<img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> Ocurrió un error al procesar tu pregunta., "bot-msg");
+        addMessage(`<img src="logo-ofr.png" alt="OFR"><strong>OFR:</strong> Ocurrió un error al procesar tu pregunta.`, "bot-msg");
       }
     }
 
